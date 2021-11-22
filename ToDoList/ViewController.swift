@@ -8,32 +8,37 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
     
-    var taskStruct = [TaskStruct]()
+    var taskStruct = [TaskStruct]() {
+        didSet {
+            self.saveTask()
+        }
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.dataSource = self
-        // Do any additional setup after loading the view.
+        self.loadTask()
+        // Do any additional setup after loading the view.cx
     }
-
+    
     @IBAction func tapEditBtn(_ sender: UIBarButtonItem) {
     }
     
     @IBAction func tapAddButton(_ sender: UIBarButtonItem) {
         
-       let alert = UIAlertController(title: "오늘 뭐하지?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "오늘 뭐하지?", message: nil, preferredStyle: .alert)
         let registAlert = UIAlertAction(title: "등록", style: .default, handler: {[weak self] _ in
-        guard let textFieldValue = alert.textFields?[0].text else { return }
-        let task = TaskStruct(todo: textFieldValue, complete: false)
-        self?.taskStruct.append(task)
-        self?.tableView.reloadData()
-       })
-       let cancelAlert = UIAlertAction(title: "취소", style: .default, handler: nil)
+            guard let textFieldValue = alert.textFields?[0].text else { return }
+            let task = TaskStruct(todo: textFieldValue, complete: false)
+            self?.taskStruct.append(task)
+            self?.tableView.reloadData()
+        })
+        let cancelAlert = UIAlertAction(title: "취소", style: .default, handler: nil)
         alert.addAction(cancelAlert)
         alert.addAction(registAlert)
         alert.addTextField(configurationHandler: {textField in
@@ -41,6 +46,25 @@ class ViewController: UIViewController {
         })
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    func saveTask() {
+        let dataMapping = self.taskStruct.map{
+            [
+                "todo": $0.todo,
+                "complete": $0.complete
+            ]
+        }
+        UserDefaults.standard.set(dataMapping, forKey: "User_Default_Set_Key")
+    }
+    
+    func loadTask() {
+       guard let dataLoad = UserDefaults.standard.object(forKey: "User_Default_Set_Key") as? [[String: Any]] else { return }
+        self.taskStruct = dataLoad.compactMap({
+            guard let todo = $0["todo"] as? String else { return nil}
+            guard let complete = $0["complete"] as? Bool else { return nil}
+            return TaskStruct(todo: todo, complete: complete)
+        })
     }
 }
 
