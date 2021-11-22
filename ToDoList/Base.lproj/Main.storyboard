@@ -52,7 +52,7 @@
                     <navigationItem key="navigationItem" id="ECY-9Q-KfM">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="sqN-wX-zs6">
                             <connections>
-                                <action selector="tapEditBtn:" destination="BYZ-38-t0r" id="l2c-Jz-pA5"/>
+                                <action selector="tapEditButton:" destination="BYZ-38-t0r" id="nCD-av-erZ"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="4Tq-v3-FwM">
@@ -63,6 +63,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="QQF-Iy-SIT" id="6Iq-sq-8Ru"/>
+                        <outlet property="tapEditButton" destination="sqN-wX-zs6" id="2T2-7b-jNR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

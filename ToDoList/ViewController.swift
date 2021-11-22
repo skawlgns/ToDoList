@@ -10,7 +10,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var tapEditButton: UIBarButtonItem!
     
+    var doneButton: UIBarButtonItem?
     
     var taskStruct = [TaskStruct]() {
         didSet {
@@ -21,13 +23,26 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.doneButton = UIBarButtonItem(barButtonSystemItem: .done , target: self, action: #selector(doneButtonTap))
+        
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.loadTask()
         // Do any additional setup after loading the view.cx
     }
     
-    @IBAction func tapEditBtn(_ sender: UIBarButtonItem) {
+    @objc func doneButtonTap() {
+        self.navigationItem.leftBarButtonItem = self.tapEditButton
+        self.tableView.setEditing(false, animated: true)
     }
+    
+    @IBAction func tapEditButton(_ sender: UIBarButtonItem) {
+        guard !self.taskStruct.isEmpty else { return }
+        self.navigationItem.leftBarButtonItem = self.doneButton
+        self.tableView.setEditing(true, animated: true)
+    }
+    
     
     @IBAction func tapAddButton(_ sender: UIBarButtonItem) {
         
@@ -77,6 +92,43 @@ extension ViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let task = self.taskStruct[indexPath.row]
         cell.textLabel?.text = task.todo
+        
+        
+        if task.complete {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        self.taskStruct.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        if self.taskStruct.isEmpty {
+            self.doneButtonTap()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        var tasks = self.taskStruct
+        let task = tasks[sourceIndexPath.row]
+        tasks.remove(at: sourceIndexPath.row)
+        tasks.insert(task, at: destinationIndexPath.row)
+        self.taskStruct = tasks
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       var task = self.taskStruct[indexPath.row]
+        task.complete = !task.complete
+        self.taskStruct[indexPath.row] = task
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
