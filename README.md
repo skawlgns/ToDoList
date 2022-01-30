@@ -10,10 +10,10 @@
 <details>
     <summary>자세히</summary>
 
-1. [프로젝트 목적](https://github.com/skawlgns/react-list/blob/main/README.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A9%EC%A0%81)
-2. [활용 기술](https://github.com/skawlgns/react-list/blob/main/README.md#%ED%99%9C%EC%9A%A9-%EA%B8%B0%EC%88%A0)
-3. [구현 내용](https://github.com/skawlgns/react-list/blob/main/README.md#%EA%B5%AC%ED%98%84-%EB%82%B4%EC%9A%A9)
-4. [학습 내용](https://github.com/skawlgns/react-list/blob/main/README.md#%ED%95%99%EC%8A%B5-%EB%82%B4%EC%9A%A9)
+1. [프로젝트 목적](https://github.com/skawlgns/ToDoList/blob/main/README.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EB%AA%A9%EC%A0%81)
+2. [활용 기술](https://github.com/skawlgns/ToDoList/blob/main/README.md#%ED%99%9C%EC%9A%A9-%EA%B8%B0%EC%88%A0)
+3. [구현 내용](https://github.com/skawlgns/ToDoList/blob/main/README.md#%EA%B5%AC%ED%98%84-%EB%82%B4%EC%9A%A9)
+4. [학습 내용](https://github.com/skawlgns/ToDoList/blob/main/README.md#%ED%95%99%EC%8A%B5-%EB%82%B4%EC%9A%A9)
 
 
 </details>
