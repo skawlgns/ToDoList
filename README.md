@@ -1,5 +1,5 @@
 # To-Do List
-> Swift로 만든 minimal Calculator
+> Swift로 만든 todolist
 <br>
 
 ![toDoList](https://user-images.githubusercontent.com/54833831/144339749-665a884f-49ff-421b-a676-5d8ae3c5ad15.gif)
